@@ -1,0 +1,1 @@
+const getData=async(url)=>{try{ await get('content-type application json,url)}catch(e){console.log("api calling eror",e}}

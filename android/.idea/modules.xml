@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AutoReply.iml" filepath="$PROJECT_DIR$/.idea/modules/AutoReply.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/450257906/AutoReply.@react-native-async-storage_async-storage.iml" filepath="$PROJECT_DIR$/.idea/modules/450257906/AutoReply.@react-native-async-storage_async-storage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AutoReply.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AutoReply.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1308025789/AutoReply.react-native-android-sms-listener.iml" filepath="$PROJECT_DIR$/.idea/modules/-1308025789/AutoReply.react-native-android-sms-listener.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/450257906/AutoReply.react-native-async-storage_async-storage.iml" filepath="$PROJECT_DIR$/.idea/modules/450257906/AutoReply.react-native-async-storage_async-storage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/635050006/AutoReply.react-native-bootsplash.iml" filepath="$PROJECT_DIR$/.idea/modules/635050006/AutoReply.react-native-bootsplash.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/287962771/AutoReply.react-native-call-detection.iml" filepath="$PROJECT_DIR$/.idea/modules/287962771/AutoReply.react-native-call-detection.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2062943534/AutoReply.react-native-call-log.iml" filepath="$PROJECT_DIR$/.idea/modules/-2062943534/AutoReply.react-native-call-log.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/271845481/AutoReply.react-native-gesture-handler.iml" filepath="$PROJECT_DIR$/.idea/modules/271845481/AutoReply.react-native-gesture-handler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1744333223/AutoReply.react-native-get-sms-android.iml" filepath="$PROJECT_DIR$/.idea/modules/1744333223/AutoReply.react-native-get-sms-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/891796603/AutoReply.react-native-linear-gradient.iml" filepath="$PROJECT_DIR$/.idea/modules/891796603/AutoReply.react-native-linear-gradient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1289373273/AutoReply.react-native-permissions.iml" filepath="$PROJECT_DIR$/.idea/modules/-1289373273/AutoReply.react-native-permissions.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1145387027/AutoReply.react-native-reanimated.iml" filepath="$PROJECT_DIR$/.idea/modules/1145387027/AutoReply.react-native-reanimated.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-98129262/AutoReply.react-native-safe-area-context.iml" filepath="$PROJECT_DIR$/.idea/modules/-98129262/AutoReply.react-native-safe-area-context.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-244795094/AutoReply.react-native-screens.iml" filepath="$PROJECT_DIR$/.idea/modules/-244795094/AutoReply.react-native-screens.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-551268228/AutoReply.react-native-sms.iml" filepath="$PROJECT_DIR$/.idea/modules/-551268228/AutoReply.react-native-sms.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2105272697/AutoReply.react-native-svg.iml" filepath="$PROJECT_DIR$/.idea/modules/-2105272697/AutoReply.react-native-svg.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-397406195/AutoReply.react-native-vector-icons.iml" filepath="$PROJECT_DIR$/.idea/modules/-397406195/AutoReply.react-native-vector-icons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/298251132/react-native-gradle-plugin.iml" filepath="$PROJECT_DIR$/.idea/modules/298251132/react-native-gradle-plugin.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,6 @@
+module Pods_AutoReply {
+  umbrella header "Pods-AutoReply-umbrella.h"
+
+  export *
+  module * { export * }
+}
