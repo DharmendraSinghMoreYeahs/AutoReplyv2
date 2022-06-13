@@ -17,6 +17,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setMsgList } from "../reducer/actions/Actions";
 import { LocalStorage } from "../Utils/utils/localStorage";
 import AntDesign from "react-native-vector-icons/dist/AntDesign";
+import ApiClient from "../app/ApiClient";
 
 const MessageSet = (props) => {
   // const Navigation = props.navigation.navigate;
@@ -39,6 +40,7 @@ const MessageSet = (props) => {
     },
   ]);
   const [loading, setLoading] = useState(false);
+  const [isRefresh, setReferesh] = useState(false);
 
   const handleInputChage = (text, index, key) => {
     const value = text;
@@ -61,69 +63,100 @@ const MessageSet = (props) => {
   };
 
   const isAddAnotherValueInObject = async () => {
-    var list = [];
-    inputList.map((item) => {
-      if (item.msgReply !== "") {
-        list.push(item);
-      }
-    });
+    try {
+      setLoading(true);
+      var list = [];
+      inputList.map((item) => {
+        if (item.msgReply !== "") {
+          list.push(item);
+        }
+      });
 
-    var newMsgList = [];
-    msgList.map((itm) => {
-      if (itm.id == item?.id) {
-        newMsgList.push({ id: itm.id, title: itm?.title, msg: list });
+      var newMsgList = [];
+      list.map((itm) => {
+        newMsgList.push({
+          messageTitle: itm?.msgReply,
+          botId: item?._id,
+        });
+      });
+
+      let body = { msgList: newMsgList };
+
+      let result = await ApiClient.authInstance.post(
+        ApiClient.endPoints.createMessageSet,
+        body
+      );
+
+      if (result.status == 200) {
+        console.log("Created boat completed");
       } else {
-        newMsgList.push(itm);
+        console.log(result?.message);
       }
-    });
-    isStoreData(newMsgList);
-  };
-
-  const isStoreData = async (list) => {
-    // console.log("New msg lsit", JSON.stringify(list));
-
-    dispatch(setMsgList(list));
-    await LocalStorage.storeAsyncData("msgList", list);
-    props.navigation.goBack();
+      setLoading(false);
+      props.navigation.goBack();
+    } catch (e) {
+      setLoading(false);
+      console.log("Api Calling Error", e);
+    }
   };
 
   useLayoutEffect(() => {
     setLoading(true);
-    isAlreadyExistData();
-  }, []);
+    isGetData(props?.route?.params?.item?._id);
+  }, [isRefresh]);
 
-  const isAlreadyExistData = async () => {
+  const isGetData = async (id) => {
     try {
-      let data = await LocalStorage.getAsynData("msgList");
-      dispatch(setMsgList(data));
-      autoFillInputList(data);
+      let result = await ApiClient.authInstance.get(
+        ApiClient.endPoints.getMsgSetByBotId(id)
+      );
+      console.log("---GET BOT DATA>>>", result?.status);
+
+      if (result.status == 200) {
+        console.log(result?.data?.message);
+        autoFillInputList(result?.data?.message);
+        setLoading(false);
+      } else {
+        console.log("result.messages");
+        setLoading(false);
+      }
     } catch (e) {
-      console.log("GET MSG LIST", e);
+      console.log("API CALLING ERROR ", e);
+      setLoading(false);
     }
   };
 
   const autoFillInputList = (data) => {
+    var list = [];
     data.map((itm) => {
-      if (itm.id == item?.id) {
-        // if (itm.msg.length > 3) {
-        setInputList([...itm.msg]);
-        // }
+      if (itm.botId == props?.route?.params?.item?._id) {
+        list.push({ msgReply: itm?.messageTitle });
       }
     });
+    setInputList([...list]);
     setLoading(false);
   };
 
-  const handleDelete = (index) => {
-    const list = [...inputList];
-    list.splice(index, 1);
-    var updateList = [];
-    list.map((item) => {
-      updateList.push(item);
-    });
-    setInputList(updateList);
+  const handleDelete = async (id) => {
+    try {
+      let result = await ApiClient.authInstance.delete(
+        ApiClient.endPoints.getMsgSetDeleteById(id)
+      );
+      console.log("---GET BOT DATA>>>", result?.status);
+
+      if (result.status == 200) {
+        setReferesh(!isRefresh);
+      } else {
+        console.log("result.messages");
+        setLoading(false);
+      }
+    } catch (e) {
+      console.log("API CALLING ERROR ", e);
+      setLoading(false);
+    }
   };
 
-  const handleDeleteMsgSet = (idx) => {
+  const handleDeleteMsgSet = (id) => {
     // alert(idx);
     Alert.alert("Delete", "Are you sure want to delete", [
       {
@@ -134,7 +167,7 @@ const MessageSet = (props) => {
 
       {
         text: "Delete",
-        onPress: () => handleDelete(idx),
+        onPress: () => handleDelete(id),
         style: "cancel",
       },
     ]);
@@ -166,16 +199,20 @@ const MessageSet = (props) => {
                 <View style={styles.textBox} key={idx}>
                   <View style={styles.rowView}>
                     <Text style={styles.headText}>Msg SetType {idx + 1}</Text>
-                    <TouchableOpacity onPress={() => handleDeleteMsgSet(idx)}>
+                    <TouchableOpacity
+                      onPress={() => handleDeleteMsgSet(itm?._id)}
+                    >
                       <AntDesign name="delete" size={30} color={"#000"} />
                     </TouchableOpacity>
                   </View>
                   <TextInputBox
+                    placeholder={
+                      itm?.messageTitle == "" ? "Type here" : itm?.messageTitle
+                    }
                     value={itm.msgReply}
                     onChange={(text, key) =>
                       handleInputChage(text, idx, (key = "msgReply"))
                     }
-                    placeholder="Type here"
                   />
                 </View>
               );

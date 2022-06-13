@@ -97,17 +97,18 @@ export default MainHeader;
 
 const styles = StyleSheet.create({
   header: {
-    height: getHp(90),
+    height: getHp(80),
     backgroundColor: "#C4C4C4",
     alignItems: "flex-end",
-    paddingBottom: getHp(15),
+    // paddingBottom: getHp(15),
+    paddingVertical: getHp(20),
     paddingHorizontal: getHp(15),
     flexDirection: "row",
     justifyContent: "space-between",
   },
   HeaderTitle: {
-    fontSize: FONTSIZE.Text24,
-    fontWeight: "bold",
+    fontSize: FONTSIZE.Text26,
+    fontWeight: "700",
     letterSpacing: 1,
     color: "#000",
   },

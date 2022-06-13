@@ -9,10 +9,12 @@ import {
   TextInput,
   PermissionsAndroid,
   AppState,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import CallDetectorManager from "react-native-call-detection";
+import { useFocusEffect } from "@react-navigation/native";
 import CallLogs from "react-native-call-log";
 import { FAB } from "react-native-paper";
 
@@ -133,6 +135,84 @@ const RenderItem = ({ item, index, handleDelete, Navigation, handleEdit }) => {
   );
 };
 
+//Password popup modal
+const ModalPopUp = ({
+  handleChangePassword,
+  setModalVisible,
+  modalVisible,
+  email,
+  setEmail,
+  newPassword,
+  setNewPassword,
+  oldPassword,
+  setOldPassword,
+  passwordStatus,
+}) => {
+  return (
+    <View style={styles.centeredView}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>
+              {passwordStatus ? "Change Pasword" : "Enter Password"}
+            </Text>
+
+            <TextInput
+              placeholder={"Email"}
+              style={styles.modalInput}
+              onChangeText={(e) => setEmail(e)}
+              value={email}
+            />
+
+            <TextInput
+              placeholder={"Old password"}
+              style={styles.modalInput}
+              secureTextEntry={true}
+              onChangeText={(e) => setOldPassword(e)}
+              value={oldPassword}
+            />
+
+            <TextInput
+              placeholder={"New password"}
+              style={styles.modalInput}
+              secureTextEntry={true}
+              onChangeText={(e) => setNewPassword(e)}
+              value={newPassword}
+            />
+            <View style={styles.BtnContainer}>
+              <TouchableOpacity
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => {
+                  handleChangePassword();
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <Text style={styles.textStyle}>Submit</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <Text style={styles.textStyle}>Cancel</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+    </View>
+  );
+};
+
 const Home = (props) => {
   const Navigation = props.navigation.navigate;
   const dispatch = useDispatch();
@@ -160,10 +240,10 @@ const Home = (props) => {
   const [editStatus, setEditStatus] = useState(false);
   // const [editItem, setEditItem] = useState({});
   const [passwordStatus, setPasswordStaus] = useState(false);
-
-  const setPass = (e) => {
-    appStore.setPassword(e);
-  };
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   const isAlreadyLogin = async () => {
     let data = await LocalStorage.getAsynData("password");
@@ -174,6 +254,12 @@ const Home = (props) => {
       console.log("---USER ASYN STORE INFO-->>", userInfo?.userInfo);
     }
   };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      isGetMessage();
+    }, [])
+  );
 
   //get all permission read,write,send
   useEffect(() => {
@@ -219,17 +305,22 @@ const Home = (props) => {
 
   const isGetMessage = async () => {
     try {
+      setLoading(true);
       let result = await ApiClient.authInstance.get(
         ApiClient.endPoints.getBoat
       );
+      // console.log("---GET DATA BOAT>>>", result?.data?.message);
+
       if (result.status == 200) {
-        console.log("---GET DATA BOAT>>>", result?.data?.message?.getRecordbot);
-        setBotList(result?.data?.message?.getRecordbot);
+        console.log("---GET DATA BOAT>>>", result?.data?.message);
+        setBotList(result?.data?.message);
       } else {
         console.log("result.messages");
       }
+      setLoading(false);
     } catch (e) {
       console.log("IS GET MESSAGE LIST-->>", e);
+      setLoading(false);
     }
   };
 
@@ -249,7 +340,6 @@ const Home = (props) => {
 
       if (result.status == 201) {
         console.log("Created boat completed");
-
         setIsRefresh(!isRefresh);
       } else {
         console.log(result?.message);
@@ -302,6 +392,7 @@ const Home = (props) => {
   //Delete Bot by id call function
   const handleDelete = async (item) => {
     try {
+      setLoading(true);
       console.log("item Delete-->>", item?._id);
       let body = {
         _id: item?._id,
@@ -564,63 +655,40 @@ const Home = (props) => {
     }
   };
 
+  const handleChangePassword = async () => {
+    try {
+      let body = {
+        email,
+        newPassword,
+        oldPassword,
+      };
+
+      let result = await ApiClient.instance.post(
+        ApiClient.endPoints.changePassword,
+        body
+      );
+      console.log(
+        "---PASSWORD CHANGE BOAT>>>",
+        result.status,
+        result?.data?.message
+      );
+
+      if (result.status == 200) {
+        console.log("++++++++>>", result?.data?.message);
+
+        setBotList(result?.data?.message);
+      } else {
+        console.log("result.messages");
+      }
+      setLoading(false);
+    } catch (e) {
+      console.log("Api Calling Error", e);
+    }
+  };
+
   //text box pop up toggle
   const handleToggle = () => {
     setIsAddModalVisible(!isAddModalVisible);
-  };
-
-  //Password popup modal
-  const ModalPopUp = () => {
-    return (
-      <View style={styles.centeredView}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>
-                {passwordStatus ? "Change Pasword" : "Enter Password"}
-              </Text>
-
-              <TextInput
-                style={styles.modalInput}
-                secureTextEntry={true}
-                onChangeText={(e) => setPass(e)}
-                // value={userData.password}
-              />
-              <View style={styles.BtnContainer}>
-                <TouchableOpacity
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => {
-                    LocalStorage.storeAsyncData(
-                      "password",
-                      appStore.userData.password
-                    );
-                    setModalVisible(!modalVisible);
-                  }}
-                >
-                  <Text style={styles.textStyle}>Submit</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => {
-                    setModalVisible(!modalVisible);
-                  }}
-                >
-                  <Text style={styles.textStyle}>Cancel</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        </Modal>
-      </View>
-    );
   };
 
   return (
@@ -632,52 +700,69 @@ const Home = (props) => {
           setPasswordStaus(true);
         }}
       />
-      <View style={styles.mainContent}>
-        <ModalPopUp />
-        <View
-          style={{
-            // justifyContent: "center",
-            // alignItems: "center",
-            height: "100%",
-            backgroundColor: "rde",
-          }}
-        >
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={isBotList}
-            renderItem={(item, index) => (
-              <RenderItem
-                item={item}
-                index={index}
-                handleDelete={handleDelete}
-                Navigation={Navigation}
-                handleEdit={handleEdit}
-              />
-            )}
-          />
-        </View>
-
-        <View>
-          <FAB
-            style={styles.fab}
-            icon="plus"
-            onPress={() => setIsAddModalVisible(!isAddModalVisible)}
-          />
-        </View>
-
-        <IsAddMsgModal
-          handleToggle={handleToggle}
-          isAddModalVisible={isAddModalVisible}
-          setIsAddModalVisible={setIsAddModalVisible}
-          newMsgText={newMsgText}
-          setNewMsgText={setNewMsgText}
-          handleAddNewMsgSet={handleAddNewMsgSet}
-          handleCreateBot={handleCreateBot}
-          editItem={editItem}
-          handleUpdateEdit={handleUpdateEdit}
-          editStatus={editStatus}
+      {loading ? (
+        <ActivityIndicator
+          size="large"
+          color="#C4C4C4"
+          style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         />
-      </View>
+      ) : (
+        <View style={styles.mainContent}>
+          <ModalPopUp
+            handleChangePassword={handleChangePassword}
+            setModalVisible={setModalVisible}
+            modalVisible={modalVisible}
+            email={email}
+            setEmail={setEmail}
+            newPassword={newPassword}
+            setNewPassword={setNewPassword}
+            oldPassword={oldPassword}
+            setOldPassword={setOldPassword}
+            passwordStatus={passwordStatus}
+          />
+          <View
+            style={{
+              height: "100%",
+              backgroundColor: "rde",
+            }}
+          >
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={isBotList}
+              renderItem={(item, index) => (
+                <RenderItem
+                  item={item}
+                  index={index}
+                  handleDelete={handleDelete}
+                  Navigation={Navigation}
+                  handleEdit={handleEdit}
+                />
+              )}
+            />
+          </View>
+
+          <View>
+            <FAB
+              style={styles.fab}
+              icon="plus"
+              onPress={() => setIsAddModalVisible(!isAddModalVisible)}
+            />
+          </View>
+
+          <IsAddMsgModal
+            handleToggle={handleToggle}
+            isAddModalVisible={isAddModalVisible}
+            setIsAddModalVisible={setIsAddModalVisible}
+            newMsgText={newMsgText}
+            setNewMsgText={setNewMsgText}
+            handleAddNewMsgSet={handleAddNewMsgSet}
+            handleCreateBot={handleCreateBot}
+            editItem={editItem}
+            handleUpdateEdit={handleUpdateEdit}
+            editStatus={editStatus}
+          />
+        </View>
+      )}
     </>
   );
 };
@@ -764,11 +849,12 @@ const styles = StyleSheet.create({
   },
   modalInput: {
     backgroundColor: "#fff",
-    width: getWp(190),
+    width: getWp(200),
     height: getHp(50),
     borderRadius: 10,
     fontSize: FONTSIZE.Text18,
-    paddingHorizontal: 15,
+    paddingHorizontal: 10,
+    marginVertical: getHp(10),
     color: "#000",
     alignSelf: "center",
   },

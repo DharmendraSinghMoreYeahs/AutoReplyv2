@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/moreyeahs/Desktop/Archive/android/app/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-v31/values-v31.xml",
+            "map": [
+                {
+                    "source": "/Users/moreyeahs/.gradle/caches/transforms-3/b4bceaddfa26a9b8da8adb7312c4ecac/transformed/jetified-core-splashscreen-1.0.0-beta01/res/values-v31/values-v31.xml",
+                    "from": {
+                        "startLines": "2,9",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,473",
+                        "endLines": "8,13",
+                        "endColumns": "12,12",
+                        "endOffsets": "468,697"
+                    }
+                }
+            ]
+        }
+    ]
+}

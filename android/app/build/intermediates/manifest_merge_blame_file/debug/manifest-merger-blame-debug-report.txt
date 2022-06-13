@@ -5,7 +5,7 @@
 5    android:versionName="1.0" >
 6
 7    <uses-sdk
-8        android:minSdkVersion="29"
+8        android:minSdkVersion="21"
 9        android:targetSdkVersion="31" />
 10
 11    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
@@ -45,85 +45,83 @@
 24        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 24-->[androidx.core:core:1.6.0] /Users/moreyeahs/.gradle/caches/transforms-3/8b0227486469b2b694770cd674522793/transformed/core-1.6.0/AndroidManifest.xml:24:18-86
 25        android:debuggable="true"
-26        android:extractNativeLibs="false"
-27        android:icon="@mipmap/ic_launcher"
-27-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:20:116-150
-28        android:label="@string/app_name"
-28-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:20:83-115
-29        android:roundIcon="@mipmap/ic_launcher_round"
-29-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:20:151-196
-30        android:supportsRtl="true"
-30-->[:react-native-call-detection] /Users/moreyeahs/Desktop/Archive/node_modules/react-native-call-detection/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:14:9-35
-31        android:testOnly="true"
-32        android:theme="@style/AppTheme"
-32-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:20:225-256
-33        android:usesCleartextTraffic="true" >
-33-->/Users/moreyeahs/Desktop/Archive/android/app/src/debug/AndroidManifest.xml:8:9-44
-34        <activity
-34-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:39:3-80
-35            android:name="com.facebook.react.devsupport.DevSettingsActivity"
-35-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:39:13-77
-36            android:exported="false" />
-36-->/Users/moreyeahs/Desktop/Archive/android/app/src/debug/AndroidManifest.xml:11:84-108
-37        <activity
-37-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:21:3-37:14
-38            android:name="com.autoreply.MainActivity"
-38-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:21:13-41
-39            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
-39-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:21:76-185
-40            android:exported="true"
-40-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:21:261-284
-41            android:label="@string/app_name"
-41-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:21:43-75
-42            android:launchMode="singleTask"
-42-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:21:186-217
-43            android:screenOrientation="portrait"
-43-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:21:285-321
-44            android:windowSoftInputMode="adjustResize" >
-44-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:21:218-260
-45
-46            <!--
-47         <receiver
-48         android:name="com.autoreply.BootUpReceiver"
-49         android:enabled="true"
-50         android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
-51            -->
-52
-53            <intent-filter>
-53-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:27:5-34:21
-54                <action android:name="android.intent.action.MAIN" />
-54-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:28:6-58
-54-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:28:14-55
+26        android:icon="@mipmap/ic_launcher"
+26-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:20:116-150
+27        android:label="@string/app_name"
+27-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:20:83-115
+28        android:roundIcon="@mipmap/ic_launcher_round"
+28-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:20:151-196
+29        android:supportsRtl="true"
+29-->[:react-native-call-detection] /Users/moreyeahs/Desktop/Archive/node_modules/react-native-call-detection/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:14:9-35
+30        android:theme="@style/AppTheme"
+30-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:20:225-256
+31        android:usesCleartextTraffic="true" >
+31-->/Users/moreyeahs/Desktop/Archive/android/app/src/debug/AndroidManifest.xml:8:9-44
+32        <activity
+32-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:39:3-80
+33            android:name="com.facebook.react.devsupport.DevSettingsActivity"
+33-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:39:13-77
+34            android:exported="false" />
+34-->/Users/moreyeahs/Desktop/Archive/android/app/src/debug/AndroidManifest.xml:11:84-108
+35        <activity
+35-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:21:3-37:14
+36            android:name="com.autoreply.MainActivity"
+36-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:21:13-41
+37            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
+37-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:21:76-185
+38            android:exported="true"
+38-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:21:261-284
+39            android:label="@string/app_name"
+39-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:21:43-75
+40            android:launchMode="singleTask"
+40-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:21:186-217
+41            android:screenOrientation="portrait"
+41-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:21:285-321
+42            android:windowSoftInputMode="adjustResize" >
+42-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:21:218-260
+43
+44            <!--
+45         <receiver
+46         android:name="com.autoreply.BootUpReceiver"
+47         android:enabled="true"
+48         android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+49            -->
+50
+51            <intent-filter>
+51-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:27:5-34:21
+52                <action android:name="android.intent.action.MAIN" />
+52-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:28:6-58
+52-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:28:14-55
+53
+54                <category android:name="android.intent.category.LAUNCHER" />
+54-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:29:6-66
+54-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:29:16-63
 55
-56                <category android:name="android.intent.category.LAUNCHER" />
-56-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:29:6-66
-56-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:29:16-63
+56                <action android:name="android.intent.action.BOOT_COMPLETED" />
+56-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:31:6-68
+56-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:31:14-65
 57
-58                <action android:name="android.intent.action.BOOT_COMPLETED" />
-58-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:31:6-68
-58-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:31:14-65
-59
-60                <category android:name="android.intent.category.DEFAULT" />
-60-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:32:11-70
-60-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:32:21-67
-61            </intent-filter>
-62
-63            <!-- </receiver> -->
-64        </activity>
-65
-66        <service
-66-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:40:5-44:15
-67            android:name="com.autoreply.ExampleService"
-67-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:41:7-50
-68            android:enabled="true"
-68-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:42:7-29
-69            android:exported="false" >
-69-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:43:7-31
+58                <category android:name="android.intent.category.DEFAULT" />
+58-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:32:11-70
+58-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:32:21-67
+59            </intent-filter>
+60
+61            <!-- </receiver> -->
+62        </activity>
+63
+64        <service
+64-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:40:5-44:15
+65            android:name="com.autoreply.ExampleService"
+65-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:41:7-50
+66            android:enabled="true"
+66-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:42:7-29
+67            android:exported="false" >
+67-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:43:7-31
+68        </service>
+69        <service android:name="com.autoreply.ExampleEventService" >
+69-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:45:5-47:15
+69-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:46:7-55
 70        </service>
-71        <service android:name="com.autoreply.ExampleEventService" >
-71-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:45:5-47:15
-71-->/Users/moreyeahs/Desktop/Archive/android/app/src/main/AndroidManifest.xml:46:7-55
-72        </service>
-73    </application>
-74
-75</manifest>
+71    </application>
+72
+73</manifest>

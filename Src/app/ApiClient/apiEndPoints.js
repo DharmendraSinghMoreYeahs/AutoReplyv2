@@ -1,5 +1,5 @@
 class Server {
-  userService = "https://6c49-103-15-67-130.ngrok.io";
+  userService = "https://603c-103-15-67-130.ngrok.io";
 
   ngrok = "";
   baseURL = this.userService;
@@ -12,6 +12,12 @@ class Endpoints extends Server {
   createBot = "api/bot/createbot";
   updateBot = (id) => `api/bot/updatebot?botId=${id}`;
   deleteBot = "api/bot/deletebot";
+  getSettings = (mobile) => `api/setting/getCreateSetting?mobile=${mobile}`;
+  saveSettings = (id) => `api/setting/updateSettingTable?_id=${id}`;
+  getMsgSetByBotId = (id) => `api/message/getByBotId?botId=${id}`;
+  getMsgSetDeleteById = (id) => `api/message/deleteById?_id=${id}`;
+  createMessageSet = "api/message/createMessage";
+  changePassword = "api/auth/changePassword";
 }
 
 export default Object.freeze(new Endpoints());

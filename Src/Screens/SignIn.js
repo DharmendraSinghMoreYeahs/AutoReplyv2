@@ -6,6 +6,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import { TextInput } from "react-native-paper";
 
@@ -126,48 +127,58 @@ const SignIn = (props) => {
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.container}>
-        <Image
-          style={styles.tinyLogo}
-          source={require("../Utils/Assets/login.png")}
+      {loading ? (
+        <ActivityIndicator
+          size="large"
+          color="#C4C4C4"
+          style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
         />
-        <Text style={styles.headText}>Login</Text>
-        <TextInputPaper
-          label={"Username"}
-          value={email}
-          onChange={(e) => setEmail(e)}
-          activeOutlineColor={error.isemail ? "#FF0000" : "#a9a9a9"}
-          outlineColor={error.isemail ? "#FF0000" : "#C4C4C4"}
-        />
-        {error.isemail && (
-          <Text style={[styles.SubHeadingText]}>
-            Please provide a valid email address
-          </Text>
-        )}
+      ) : (
+        <View style={styles.container}>
+          <Image
+            style={styles.tinyLogo}
+            source={require("../Utils/Assets/login.png")}
+          />
+          <Text style={styles.headText}>Login</Text>
+          <TextInputPaper
+            label={"Username"}
+            value={email}
+            onChange={(e) => setEmail(e)}
+            activeOutlineColor={error.isemail ? "#FF0000" : "#a9a9a9"}
+            outlineColor={error.isemail ? "#FF0000" : "#C4C4C4"}
+          />
+          {error.isemail && (
+            <Text style={[styles.SubHeadingText]}>
+              Please provide a valid email address
+            </Text>
+          )}
 
-        <TextInputPaper
-          label={"Password"}
-          secure
-          // right={<TextInput.Icon name="eye" />}
-          value={password}
-          onChange={(e) => setPassword(e)}
-          activeOutlineColor={error.ispassword ? "#FF0000" : "#a9a9a9"}
-          outlineColor={error.ispassword ? "#FF0000" : "#C4C4C4"}
-        />
-        {error.ispassword && (
-          <Text style={[styles.SubHeadingText]}>
-            Please provide at least 6 characters
-          </Text>
-        )}
+          <TextInputPaper
+            label={"Password"}
+            secure
+            // right={<TextInput.Icon name="eye" />}
+            value={password}
+            onChange={(e) => setPassword(e)}
+            activeOutlineColor={error.ispassword ? "#FF0000" : "#a9a9a9"}
+            outlineColor={error.ispassword ? "#FF0000" : "#C4C4C4"}
+          />
+          {error.ispassword && (
+            <Text style={[styles.SubHeadingText]}>
+              Please provide at least 6 characters
+            </Text>
+          )}
 
-        <View style={styles.rowView}>
-          <Text style={styles.alreadyText}>Dont't have account? </Text>
-          <TouchableOpacity onPress={() => props.navigation.navigate("SignUp")}>
-            <Text style={styles.alreadyText}>Singup</Text>
-          </TouchableOpacity>
+          <View style={styles.rowView}>
+            <Text style={styles.alreadyText}>Dont't have account? </Text>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate("SignUp")}
+            >
+              <Text style={styles.alreadyText}>Singup</Text>
+            </TouchableOpacity>
+          </View>
+          <CustomButton btnText={"Submit"} onPress={() => handleLogin()} />
         </View>
-        <CustomButton btnText={"Submit"} onPress={() => handleLogin()} />
-      </View>
+      )}
     </TouchableWithoutFeedback>
   );
 };
