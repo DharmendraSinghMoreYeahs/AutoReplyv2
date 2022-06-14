@@ -168,14 +168,14 @@ const SignIn = (props) => {
             </Text>
           )}
 
-          <View style={styles.rowView}>
+          {/* <View style={styles.rowView}>
             <Text style={styles.alreadyText}>Dont't have account? </Text>
             <TouchableOpacity
               onPress={() => props.navigation.navigate("SignUp")}
             >
               <Text style={styles.alreadyText}>Singup</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
           <CustomButton btnText={"Submit"} onPress={() => handleLogin()} />
         </View>
       )}

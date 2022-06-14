@@ -35,7 +35,8 @@ const Routes = () => {
 
   return (
     <NavigationContainer>
-      {isAuthenticate ? <AppStack /> : <AuthStack />}
+      {/* {isAuthenticate ? <AppStack /> : <AuthStack />} */}
+      <AppStack />
     </NavigationContainer>
   );
 };

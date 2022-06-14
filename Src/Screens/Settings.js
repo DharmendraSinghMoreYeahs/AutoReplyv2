@@ -64,7 +64,7 @@ const Settings = (props) => {
   const isGetSettings = async () => {
     try {
       let result = await ApiClient.authInstance.get(
-        ApiClient.endPoints.getSettings(settings?.userInfo?.mobile)
+        ApiClient.endPoints.getSettings("1234567890")
       );
       console.log("---GET SETTINGS>>>", result?.status);
 

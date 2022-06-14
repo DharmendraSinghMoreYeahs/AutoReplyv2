@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     width: getWp(150),
     borderRadius: getHp(50),
     backgroundColor: "#C4C4C4",
-    // marginVertical: getHp(20),
+    marginVertical: getHp(20),
     justifyContent: "center",
     alignItems: "center",
   },

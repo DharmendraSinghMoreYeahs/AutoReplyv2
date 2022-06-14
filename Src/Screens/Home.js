@@ -81,6 +81,7 @@ const IsAddMsgModal = ({
                 style={[styles.button, styles.buttonClose]}
                 onPress={() => {
                   handleToggle();
+                  setNewMsgText("");
                 }}
               >
                 <Text style={styles.textStyle}>Cancel</Text>
@@ -296,6 +297,7 @@ const Home = (props) => {
 
     let subscription = SmsListener.addListener((message) => {
       setMessage(message);
+      console.log("-->>>>Income message-->>", message);
     });
 
     return () => {
@@ -306,13 +308,10 @@ const Home = (props) => {
   const isGetMessage = async () => {
     try {
       setLoading(true);
-      let result = await ApiClient.authInstance.get(
-        ApiClient.endPoints.getBoat
-      );
-      // console.log("---GET DATA BOAT>>>", result?.data?.message);
+      let result = await ApiClient.instance.get(ApiClient.endPoints.getBoat);
 
       if (result.status == 200) {
-        console.log("---GET DATA BOAT>>>", result?.data?.message);
+        // console.log("---GET DATA BOAT>>>", result?.data?.message);
         setBotList(result?.data?.message);
       } else {
         console.log("result.messages");
@@ -332,7 +331,7 @@ const Home = (props) => {
         title: newMsgText,
         mobile: "1234567890",
       };
-      let result = await ApiClient.authInstance.post(
+      let result = await ApiClient.instance.post(
         ApiClient.endPoints.createBot,
         body
       );
@@ -372,7 +371,7 @@ const Home = (props) => {
         title: newMsgText,
         mobile: item?.mobile,
       };
-      let result = await ApiClient.authInstance.put(
+      let result = await ApiClient.instance.put(
         ApiClient.endPoints.updateBot(item?._id),
         body
       );
@@ -416,7 +415,7 @@ const Home = (props) => {
   useEffect(() => {
     const setTimeoutVar = setTimeout(() => {
       if (sentMsgOnOff.value) {
-        // console.log("Setting-->>>", message?.timestamp);
+        console.log("Setting-->>>", message?.timestamp);
         isStoreMsgInfo(message, phoneInfo, isBotList);
       } else {
         console.log("->>POWER OF AUTO SENT AUTO REPLY---->>>");
@@ -457,36 +456,39 @@ const Home = (props) => {
 
   const isAutoSendMessage = async (phList, Info, messageList) => {
     try {
-      // setTimeout(() => {
-      //   var msgCounter = 0;
-      //   for (let i = 0; i < phList.length; i++) {
-      //     if (phList[i].mobileNo == Info.mobileNo) {
-      //       msgCounter = msgCounter + 1;
-      //     }
-      //   }
-      //   var msgNum = msgCounter == 1 ? 0 : msgCounter - 1;
-      //   var randomMsgSet = messageList[msgNum].msg;
-      //   const randomMessageFromSet =
-      //     randomMsgSet[Math.floor(Math.random() * randomMsgSet.length)];
-      //   const sendMessage = randomMessageFromSet?.msgReply;
-      //   var message =
-      //     sendMessage !== undefined ? sendMessage : setting?.msgText;
-      //   console.log("MESSAGE SSEND-->>>>>", message, setting?.delayResponse);
-      //   SmsAndroid.autoSend(
-      //     JSON.stringify(Info.mobileNo),
-      //     JSON.stringify(message),
-      //     (fail) => {
-      //       console.log("Failed with this error: " + fail);
-      //     },
-      //     (success) => {
-      //       console.log("SMS sent successfully");
-      //     }
-      //   );
-      //   msgCounter = 0;
-      //   setTimeout(() => {
-      //     isInActiveTimeSend(phList, Info);
-      //   }, Number(setting?.inactiveTimer) * 60 * 1000);
-      // }, Number(setting?.delayResponse) * 1000);
+      setTimeout(() => {
+        var msgCounter = 0;
+        for (let i = 0; i < phList.length; i++) {
+          if (phList[i].mobileNo == Info.mobileNo) {
+            msgCounter = msgCounter + 1;
+          }
+        }
+        var msgNum = msgCounter == 1 ? 0 : msgCounter - 1;
+
+        var randomMsgSet = messageList[msgNum].messageSet;
+        const randomMessageFromSet =
+          randomMsgSet[Math.floor(Math.random() * randomMsgSet.length)];
+
+        const sendMessage = randomMessageFromSet?.messageTitle;
+        var message =
+          sendMessage !== undefined ? sendMessage : setting?.msgText;
+        console.log("MESSAGE SSEND-->>>>>", message, setting?.delayResponse);
+        SmsAndroid.autoSend(
+          JSON.stringify(Info.mobileNo),
+          JSON.stringify(message),
+          (fail) => {
+            console.log("Failed with this error: " + fail);
+          },
+          (success) => {
+            console.log("SMS sent successfully");
+          }
+        );
+        msgCounter = 0;
+
+        setTimeout(() => {
+          isInActiveTimeSend(phList, Info);
+        }, Number(setting?.inactiveTimer) * 60 * 1000);
+      }, Number(setting?.delayResponse) * 1000);
     } catch (e) {
       console.log("AUTO SEND MESSAGE", e);
     }
@@ -695,10 +697,10 @@ const Home = (props) => {
     <>
       <MainHeader
         {...{ Navigation }}
-        onPressPassword={() => {
-          setModalVisible(!modalVisible);
-          setPasswordStaus(true);
-        }}
+        // onPressPassword={() => {
+        //   setModalVisible(!modalVisible);
+        //   setPasswordStaus(true);
+        // }}
       />
       {loading ? (
         <ActivityIndicator

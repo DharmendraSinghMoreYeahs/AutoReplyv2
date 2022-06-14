@@ -4,6 +4,7 @@ import {
   View,
   StyleSheet,
   BackHandler,
+  Alert,
 } from "react-native";
 import React, { useEffect } from "react";
 import { getHp, getWp } from "../Utils/utils/viewUtils";

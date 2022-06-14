@@ -130,7 +130,7 @@ const MessageSet = (props) => {
     var list = [];
     data.map((itm) => {
       if (itm.botId == props?.route?.params?.item?._id) {
-        list.push({ msgReply: itm?.messageTitle });
+        list.push({ _id: itm?._id, msgReply: itm?.messageTitle });
       }
     });
     setInputList([...list]);
@@ -139,12 +139,13 @@ const MessageSet = (props) => {
 
   const handleDelete = async (id) => {
     try {
+      // console.log("DELETE BY ID -->>>>>>>", id);
       let result = await ApiClient.authInstance.delete(
         ApiClient.endPoints.getMsgSetDeleteById(id)
       );
       console.log("---GET BOT DATA>>>", result?.status);
 
-      if (result.status == 200) {
+      if (result.status == 201) {
         setReferesh(!isRefresh);
       } else {
         console.log("result.messages");
@@ -157,7 +158,6 @@ const MessageSet = (props) => {
   };
 
   const handleDeleteMsgSet = (id) => {
-    // alert(idx);
     Alert.alert("Delete", "Are you sure want to delete", [
       {
         text: "Cancel",
@@ -195,6 +195,7 @@ const MessageSet = (props) => {
             style={styles.scrollContainer}
           >
             {inputList.map((itm, idx) => {
+              // console.log("item-->>>>>>>>>>>", itm);
               return (
                 <View style={styles.textBox} key={idx}>
                   <View style={styles.rowView}>

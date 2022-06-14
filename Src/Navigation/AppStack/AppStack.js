@@ -1,4 +1,13 @@
-import { Home, Settings, Profile, MessageSet, Demo, SignIn } from "../../";
+import {
+  Home,
+  Settings,
+  Profile,
+  MessageSet,
+  Demo,
+  SignIn,
+  BotType,
+  CreateBot,
+} from "../../";
 import React, { useState, useEffect } from "react";
 import {
   createNativeStackNavigator,
@@ -355,12 +364,13 @@ export default function AppStack() {
         headerShown: false,
         gestureEnabled: true,
       }}
-      initialRouteName={"Home"}
+      initialRouteName={"BotType"}
     >
-      {/* <Stack.Screen name="SignUp" component={SignUp} /> */}
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="MessageSet" component={MessageSet} />
+      <Stack.Screen name="BotType" component={BotType} />
+      <Stack.Screen name="CreateBot" component={CreateBot} />
     </Stack.Navigator>
   );
 }
