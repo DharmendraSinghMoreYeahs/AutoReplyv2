@@ -1415,6 +1415,7 @@ drawable notify_panel_notification_icon_bg
 drawable redbox_top_border_background
 drawable rn_edit_text_material
 drawable src_utils_assets_login
+drawable src_utils_assets_norecord1
 drawable src_utils_assets_singup
 drawable test_custom_background
 drawable tooltip_frame_dark

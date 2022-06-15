@@ -1,5 +1,5 @@
 class Server {
-  userService = "https://aced-103-15-67-130.ngrok.io";
+  userService = "http://192.168.1.16:3000";
 
   ngrok = "";
   baseURL = this.userService;

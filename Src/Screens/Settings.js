@@ -63,10 +63,10 @@ const Settings = (props) => {
 
   const isGetSettings = async () => {
     try {
-      let result = await ApiClient.authInstance.get(
+      let result = await ApiClient.instance.get(
         ApiClient.endPoints.getSettings("1234567890")
       );
-      console.log("---GET SETTINGS>>>", result?.status);
+      console.log("---GET SETTINGS>>>", result?.data);
 
       if (result.status == 200) {
         console.log(result?.data?.message);

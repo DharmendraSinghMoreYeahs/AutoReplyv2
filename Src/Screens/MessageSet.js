@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Alert,
+  Image,
 } from "react-native";
 import React, { useState, useEffect, useLayoutEffect } from "react";
 
@@ -194,6 +195,15 @@ const MessageSet = (props) => {
             showsVerticalScrollIndicator={false}
             style={styles.scrollContainer}
           >
+            {inputList.length == 0 && (
+              <View style={styles.imageView}>
+                <Image
+                  style={styles.tinyLogo}
+                  source={require("../Utils/Assets/NoRecord1.png")}
+                />
+                <Text style={styles.msgText}>Add replies</Text>
+              </View>
+            )}
             {inputList.map((itm, idx) => {
               // console.log("item-->>>>>>>>>>>", itm);
               return (
@@ -286,5 +296,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  imageView: {
+    marginVertical: getHp(80),
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  tinyLogo: {
+    width: 350,
+    height: 250,
+  },
+  msgText: {
+    marginTop: getHp(30),
+    textAlign: "center",
+    fontSize: FONTSIZE.Text24,
+    color: "#b3b3b3",
   },
 });

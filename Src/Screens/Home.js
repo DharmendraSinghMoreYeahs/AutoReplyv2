@@ -10,6 +10,7 @@ import {
   PermissionsAndroid,
   AppState,
   ActivityIndicator,
+  Image,
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import Swipeable from "react-native-gesture-handler/Swipeable";
@@ -728,6 +729,15 @@ const Home = (props) => {
               backgroundColor: "rde",
             }}
           >
+            {isBotList.length == 0 && (
+              <View style={styles.imageView}>
+                <Image
+                  style={styles.tinyLogo}
+                  source={require("../Utils/Assets/NoRecord1.png")}
+                />
+                <Text style={styles.msgText}>Add new messages</Text>
+              </View>
+            )}
             <FlatList
               showsVerticalScrollIndicator={false}
               data={isBotList}
@@ -783,6 +793,15 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     letterSpacing: 0.5,
   },
+  imageView: {
+    marginVertical: getHp(80),
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  tinyLogo: {
+    width: 350,
+    height: 250,
+  },
   flatlistContainer: {
     backgroundColor: "#C4C4C4",
     alignItems: "center",
@@ -793,6 +812,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: getWp(20),
   },
+
   textBox: {
     width: getWp(230),
     justifyContent: "center",
@@ -848,6 +868,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: FONTSIZE.Text18,
     color: "#fff",
+  },
+  msgText: {
+    marginTop: getHp(30),
+    textAlign: "center",
+    fontSize: FONTSIZE.Text24,
+    color: "#b3b3b3",
   },
   modalInput: {
     backgroundColor: "#fff",

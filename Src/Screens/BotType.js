@@ -32,7 +32,7 @@ const IsAddMsgModal = ({
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Enter Boat title</Text>
+            <Text style={styles.modalText}>Enter Bot title</Text>
 
             <TextInput
               style={styles.modalInput}

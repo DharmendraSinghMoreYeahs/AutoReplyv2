@@ -52,6 +52,10 @@
         "source": "/Users/moreyeahs/Desktop/Archive/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png"
     },
     {
+        "merged": "/Users/moreyeahs/Desktop/Archive/android/app/build/intermediates/merged_res/release/drawable-mdpi_src_utils_assets_norecord1.png.flat",
+        "source": "/Users/moreyeahs/Desktop/Archive/android/app/build/generated/res/react/release/drawable-mdpi/src_utils_assets_norecord1.png"
+    },
+    {
         "merged": "/Users/moreyeahs/Desktop/Archive/android/app/build/intermediates/merged_res/release/mipmap-xhdpi_ic_launcher.png.flat",
         "source": "/Users/moreyeahs/Desktop/Archive/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
     },

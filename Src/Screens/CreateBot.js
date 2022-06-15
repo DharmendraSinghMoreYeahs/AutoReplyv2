@@ -7,6 +7,7 @@ import {
   Modal,
   TextInput,
   ActivityIndicator,
+  Image,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { getHp, getWp } from "../Utils/utils/viewUtils";
@@ -108,6 +109,15 @@ const CreateBot = (props) => {
                 height: "100%",
               }}
             >
+              {isBotList.length == 0 && (
+                <View style={styles.imageView}>
+                  <Image
+                    style={styles.tinyLogo}
+                    source={require("../Utils/Assets/NoRecord1.png")}
+                  />
+                  <Text style={styles.msgText}>Add new bot</Text>
+                </View>
+              )}
               <FlatList
                 showsVerticalScrollIndicator={false}
                 data={isBotList}
@@ -173,5 +183,20 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 16,
     backgroundColor: "#707070",
+  },
+  imageView: {
+    marginVertical: getHp(80),
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  tinyLogo: {
+    width: 350,
+    height: 250,
+  },
+  msgText: {
+    marginTop: getHp(30),
+    textAlign: "center",
+    fontSize: FONTSIZE.Text24,
+    color: "#b3b3b3",
   },
 });

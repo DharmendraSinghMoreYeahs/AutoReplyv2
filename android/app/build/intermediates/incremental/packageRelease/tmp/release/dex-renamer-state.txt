@@ -1,4 +1,4 @@
-#Tue Jun 14 18:49:28 IST 2022
+#Wed Jun 15 18:29:04 IST 2022
 base.0=/Users/moreyeahs/Desktop/Archive/android/app/build/intermediates/dex/release/mergeDexRelease/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
