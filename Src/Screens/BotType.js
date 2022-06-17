@@ -96,13 +96,13 @@ const BotType = (props) => {
         ApiClient.endPoints.createBt,
         body
       );
-      console.log("---CREATE BOAT>>>", result);
+
       if (result.status == 201) {
-        let body = { isAuthenticate: true };
-        await LocalStorage.storeAsyncData("login", body);
-        props.navigation.replace("Home");
-      } else if (result.status == 200) {
-        let body = { isAuthenticate: true };
+        let body = {
+          isAuthenticate: true,
+          botItem: result?.data?.user,
+          newBot: true,
+        };
         await LocalStorage.storeAsyncData("login", body);
         props.navigation.replace("Home");
       } else {

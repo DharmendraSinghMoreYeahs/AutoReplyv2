@@ -16,6 +16,7 @@ const Instance = () => {
         // MobxStore.appStore.toogleLoader(true);
       }
       //delete config.headers[ApiClient.LOADING];
+      // console.log("-Request->>", config);
       return config;
     },
     (error) => {
@@ -34,13 +35,13 @@ const Instance = () => {
       // MobxStore.appStore.toogleLoader(false);
       const { config, request, response, isAxiosError } = error;
       let text;
-      console.log("Response", response);
+      // console.log("Response", response);
       let responseTreeError = {
         url: `${request?.responseURL}`,
         data: JSON.stringify(response?.data),
         error: JSON.stringify(error),
       };
-      // console.log(`RESPONSE ERROR <<< - ${JSON.stringify(responseTreeError)}`);
+      console.log(`RESPONSE ERROR <<< - ${JSON.stringify(responseTreeError)}`);
       return Promise.reject(responseTreeError);
     }
   );

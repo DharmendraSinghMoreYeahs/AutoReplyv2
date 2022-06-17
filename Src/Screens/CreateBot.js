@@ -37,8 +37,8 @@ const RenderItem = ({ item, index, Navigation }) => {
     ]);
   };
 
-  const setAsyncData = async () => {
-    let body = { isAuthenticate: true };
+  const setAsyncData = async (item) => {
+    let body = { isAuthenticate: true, botItem: item, newBot: false };
     await LocalStorage.storeAsyncData("login", body);
   };
 
@@ -50,8 +50,8 @@ const RenderItem = ({ item, index, Navigation }) => {
       <TouchableOpacity
         style={styles.textBox}
         onPress={() => {
-          Navigation.replace("Home");
-          setAsyncData();
+          Navigation.replace("Home", { item: item });
+          setAsyncData(item);
         }}
       >
         <Text style={styles.messageSet}>

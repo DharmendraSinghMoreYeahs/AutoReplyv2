@@ -108,12 +108,16 @@ const MessageSet = (props) => {
 
   const isGetData = async (id) => {
     try {
-      let result = await ApiClient.authInstance.get(
+      let result = await ApiClient.instance.get(
         ApiClient.endPoints.getMsgSetByBotId(id)
       );
       console.log("---GET BOT DATA>>>", result?.status);
 
       if (result.status == 200) {
+        console.log(result?.data?.message);
+        autoFillInputList(result?.data?.message);
+        setLoading(false);
+      } else if (result.status == 201) {
         console.log(result?.data?.message);
         autoFillInputList(result?.data?.message);
         setLoading(false);

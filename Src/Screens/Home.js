@@ -229,6 +229,7 @@ const Home = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [newMsgText, setNewMsgText] = useState("");
+  const [btId, setBtId] = useState("");
 
   const [isEnabled, setIsEnabled] = useState(false);
   const [isPhNumExist, setIsPhNumExist] = useState(false);
@@ -251,10 +252,10 @@ const Home = (props) => {
     let data = await LocalStorage.getAsynData("password");
     data == null && setModalVisible(false);
 
-    let userInfo = await LocalStorage.getAsynData("userInfoToken");
-    if (userInfo !== null) {
-      console.log("---USER ASYN STORE INFO-->>", userInfo?.userInfo);
-    }
+    // let userInfo = await LocalStorage.getAsynData("userInfoToken");
+    // if (userInfo !== null) {
+    //   console.log("---USER ASYN STORE INFO-->>", userInfo?.userInfo);
+    // }
   };
 
   useFocusEffect(
@@ -309,18 +310,114 @@ const Home = (props) => {
   const isGetMessage = async () => {
     try {
       setLoading(true);
-      let result = await ApiClient.instance.get(ApiClient.endPoints.getBoat);
 
-      if (result.status == 200) {
-        // console.log("---GET DATA BOAT>>>", result?.data?.message);
-        setBotList(result?.data?.message);
-      } else {
-        console.log("result.messages");
+      let data = await LocalStorage.getAsynData("login");
+      if (data !== null) {
+        if (data?.newBot == true) {
+          console.log("--New Bot Id-->>> ", data?.botItem?._id);
+          setBtId(data?.botItem?._id);
+          getData(data?.botItem?._id);
+        } else {
+          console.log("--Existing Bot Id-->>> ", data?.botItem?.item?._id);
+          setBtId(data?.botItem?.item?._id);
+          getData(data?.botItem?.item?._id);
+        }
       }
-      setLoading(false);
     } catch (e) {
       console.log("IS GET MESSAGE LIST-->>", e);
       setLoading(false);
+    }
+  };
+
+  const getData = async (bt_id) => {
+    try {
+      setLoading(true);
+
+      let result = await ApiClient.instance.get(
+        ApiClient.endPoints.getBotByBtId(bt_id)
+      );
+
+      // console.log("---GET DATA BOAT>>>", result?.status, result?.data?.message);
+      if (result.status == 201) {
+        var messageSet = result?.data?.message;
+        getReplyData(messageSet);
+      } else {
+        console.log("result.messages");
+      }
+
+      //   let result = await ApiClient.instance.get(
+      //     ApiClient.endPoints.getBotById(bt_id)
+      //   );
+
+      //   console.log("---GET DATA BOAT>>>", result?.status, result?.data);
+
+      //   if (result.status == 200) {
+      //     setLoading(false);
+      //     setBotList(result?.data?.message);
+      //   } else {
+      //     console.log("result.messages");
+      //   }
+      setLoading(false);
+    } catch (e) {
+      console.log("IS GET DATA LIST-->>", e);
+      setLoading(false);
+    }
+  };
+
+  const getReplyData = async (msgSetList) => {
+    try {
+      let result = await ApiClient.instance.get(
+        ApiClient.endPoints.getCreateMsg
+      );
+
+      if (result.status == 201) {
+        let replyData = result?.data?.message;
+        setLoading(false);
+        setAllDAta(msgSetList, replyData);
+      } else {
+        console.log("result.messages");
+        setLoading(false);
+      }
+      setLoading(false);
+    } catch (e) {
+      console.log("API CALLING ERROR-->>", e);
+    }
+  };
+
+  const setAllDAta = async (msgSet, rplyList) => {
+    try {
+      var msgSetList = [];
+      msgSet.map((item) => {
+        const { _id, btId, createdAt, mobile, role, title, updatedAt } = item;
+        var reply = [];
+        rplyList.map((itm) => {
+          if (_id == itm?.botId) {
+            reply.push({
+              role: itm?.role,
+              _id: itm?._id,
+              messageTitle: itm?.messageTitle,
+              botId: itm?.botId,
+              createdAt: itm?.createdAt,
+              updatedAt: itm?.updatedAt,
+              __v: itm?.__v,
+            });
+          }
+        });
+
+        msgSetList.push({
+          _id,
+          btId,
+          createdAt,
+          mobile,
+          role,
+          title,
+          updatedAt,
+          messageSet: reply,
+        });
+      });
+      setBotList(msgSetList);
+    } catch (e) {
+      console.log("Map Functionality", e);
     }
   };
 
@@ -331,15 +428,22 @@ const Home = (props) => {
       let body = {
         title: newMsgText,
         mobile: "1234567890",
+        btId: btId,
       };
+      console.log("Body-->>", body);
       let result = await ApiClient.instance.post(
         ApiClient.endPoints.createBot,
         body
       );
       console.log("---CREATE BOAT>>>", result);
 
-      if (result.status == 201) {
-        console.log("Created boat completed");
+      if (result.status == 200) {
+        // console.log("Created boat completed");
+        // getData(btId);
+        setIsRefresh(!isRefresh);
+      } else if (result.status == 201) {
+        console.log("--STAUS BOT Id>>", btId);
+        // getData(btId);
         setIsRefresh(!isRefresh);
       } else {
         console.log(result?.message);
@@ -394,20 +498,24 @@ const Home = (props) => {
     try {
       setLoading(true);
       console.log("item Delete-->>", item?._id);
-      let body = {
-        _id: item?._id,
-      };
-      let result = await ApiClient.instance.post(
-        ApiClient.endPoints.deleteBot,
-        body
+
+      let result = await ApiClient.instance.delete(
+        ApiClient.endPoints.deleteBot(item?._id)
       );
 
-      if (result.status == 201) {
+      if (result.status == 200) {
+        setLoading(false);
+        setIsRefresh(!isRefresh);
+      } else if (result.status == 201) {
+        setLoading(false);
         setIsRefresh(!isRefresh);
       } else {
+        setLoading(false);
         console.log("---DELETE BOAT>>>", result.status);
       }
     } catch (e) {
+      setLoading(false);
+
       console.log("Api calling error Delete Bot-->", e);
     }
   };
@@ -467,6 +575,7 @@ const Home = (props) => {
         var msgNum = msgCounter == 1 ? 0 : msgCounter - 1;
 
         var randomMsgSet = messageList[msgNum].messageSet;
+        console.log("--RANDOM MESSAGE SSET->", msgNum, messageList);
         const randomMessageFromSet =
           randomMsgSet[Math.floor(Math.random() * randomMsgSet.length)];
 
